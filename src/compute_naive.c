@@ -40,8 +40,7 @@ int convolve(matrix_t *a_matrix, matrix_t *b_matrix, matrix_t **output_matrix) {
 		res_matrix->data[p*res_matrix->cols + q] = sum;
   	} 
   }
-  //free(vec_b_flipped);
-  //free(vec_a);
+  free(vec_b_flipped);
   *output_matrix = res_matrix;
   return 0; 
 
