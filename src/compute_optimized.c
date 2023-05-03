@@ -25,7 +25,22 @@ int dot(uint32_t n, int32_t *vec1, int32_t *vec2) {
       _mm256_storeu_si256((__m256i *) tmp_arr2, sum_2);
       dot += tmp_arr2[0] + tmp_arr2[1] + tmp_arr2[2] + tmp_arr2[3] + tmp_arr2[4] + tmp_arr2[5] + tmp_arr2[6] + tmp_arr2[7];
 
-  }
+      //__m256i vec_1c = _mm256_loadu_si256((__m256i *) (vec1 + i + 16));
+      //__m256i vec_2c = _mm256_loadu_si256((__m256i *) (vec2 + i + 16));
+      //__m256i sum_3 = _mm256_mullo_epi32(vec_1c, vec_2c);
+
+      //int32_t tmp_arr3[8];
+      //_mm256_storeu_si256((__m256i *) tmp_arr3, sum_3);
+      //dot += tmp_arr3[0] + tmp_arr3[1] + tmp_arr3[2] + tmp_arr3[3] + tmp_arr3[4] + tmp_arr3[5] + tmp_arr3[6] + tmp_arr3[7];
+
+      //__m256i vec_1d = _mm256_loadu_si256((__m256i *) (vec1 + i + 24));
+      //__m256i vec_2d = _mm256_loadu_si256((__m256i *) (vec2 + i + 24));
+      //__m256i sum_4 = _mm256_mullo_epi32(vec_1d, vec_2d);
+
+      //int32_t tmp_arr4[8];
+      //_mm256_storeu_si256((__m256i *) tmp_arr4, sum_4);
+      //dot += tmp_arr4[0] + tmp_arr4[1] + tmp_arr4[2] + tmp_arr4[3] + tmp_arr4[4] + tmp_arr4[5] + tmp_arr4[6] + tmp_arr4[7];
+}
 
     for(unsigned int i = n/16 * 16; i < n; i++) {
         dot += vec1[i]*vec2[i];
@@ -46,6 +61,7 @@ int convolve(matrix_t *a_matrix, matrix_t *b_matrix, matrix_t **output_matrix) {
   int32_t b_len = b_matrix->rows*b_matrix->cols;
   int32_t *vec_b_flipped = malloc(sizeof(int32_t)*b_len);
   
+  #pragma omp for
   for (int32_t i=0; i< b_len; i++) {
       vec_b_flipped[i] = b_matrix->data[b_len-i-1];
   }
