@@ -24,6 +24,9 @@ int dot(uint32_t n, int32_t *vec1, int32_t *vec2) {
       int32_t tmp_arr2[8];
       _mm256_storeu_si256((__m256i *) tmp_arr2, sum_2);
       dot += tmp_arr2[0] + tmp_arr2[1] + tmp_arr2[2] + tmp_arr2[3] + tmp_arr2[4] + tmp_arr2[5] + tmp_arr2[6] + tmp_arr2[7];
+    
+
+
     }
 
     for(unsigned int i = n/16 * 16; i < n; i++) {
