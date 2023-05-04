@@ -42,8 +42,6 @@ int main(int argc, char *argv[]) {
           MPI_Send(&message, 1, MPI_INT32_T, sourceProc, 0, MPI_COMM_WORLD);
           MPI_Send(tasks[i]->path, message, MPI_CHAR, sourceProc, 0, MPI_COMM_WORLD);
           //TODO: increment `nextTask` by 1
-          free(tasks[i]->path);
-          free(tasks[i]);
       }
       // Wait for all processes to finish
       // TODO: loop through all processes
@@ -72,7 +70,7 @@ int main(int argc, char *argv[]) {
               break;
           }
           char* task_t_path = malloc(sizeof(char)*message);
-          MPI_Recv(&task_t_path, 1, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE); //buffer
+          MPI_Recv(task_t_path, message, MPI_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE); //buffer
           task_t* task_t = malloc(sizeof(task_t));//create a task struct
           task_t->path = task_t_path;
           execute_task(task_t); // execute task
