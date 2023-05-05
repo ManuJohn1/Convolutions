@@ -7,7 +7,7 @@
 int dot(uint32_t n, int32_t *vec1, int32_t *vec2) {
     // TODO: implement dot product of vec1 and vec2, both of size n
     int32_t sum = 0;
-    for(uint32_t i = 0; i < n/32 * 32; i += 32) {
+    for(uint32_t i = 0; i < n/64 * 64; i += 64) {
       __m256i vec_1a = _mm256_loadu_si256((__m256i *) (vec1 + i));
       __m256i vec_2a = _mm256_loadu_si256((__m256i *) (vec2 + i));
       __m256i sum_1 = _mm256_mullo_epi32(vec_1a, vec_2a);
@@ -40,9 +40,42 @@ int dot(uint32_t n, int32_t *vec1, int32_t *vec2) {
       int32_t tmp_arr4[8];
       _mm256_storeu_si256((__m256i *) tmp_arr4, sum_4);
       sum += tmp_arr4[0] + tmp_arr4[1] + tmp_arr4[2] + tmp_arr4[3] + tmp_arr4[4] + tmp_arr4[5] + tmp_arr4[6] + tmp_arr4[7];
+
+      __m256i vec_1e = _mm256_loadu_si256((__m256i *) (vec1 + i + 32));
+      __m256i vec_2e = _mm256_loadu_si256((__m256i *) (vec2 + i + 32));
+      __m256i sum_5 = _mm256_mullo_epi32(vec_1e, vec_2e);
+
+
+      int32_t tmp_arr5[8];
+      _mm256_storeu_si256((__m256i *) tmp_arr5, sum_5);
+      sum += tmp_arr5[0] + tmp_arr5[1] + tmp_arr5[2] + tmp_arr5[3] + tmp_arr5[4] + tmp_arr5[5] + tmp_arr5[6] + tmp_arr5[7];
+
+      __m256i vec_1f = _mm256_loadu_si256((__m256i *) (vec1 + i + 40));
+      __m256i vec_2f = _mm256_loadu_si256((__m256i *) (vec2 + i + 40));
+      __m256i sum_6 = _mm256_mullo_epi32(vec_1f, vec_2f);
+
+      int32_t tmp_arr6[8];
+      _mm256_storeu_si256((__m256i *) tmp_arr6, sum_6);
+      sum += tmp_arr6[0] + tmp_arr6[1] + tmp_arr6[2] + tmp_arr6[3] + tmp_arr6[4] + tmp_arr6[5] + tmp_arr6[6] + tmp_arr6[7];
+
+      __m256i vec_1g = _mm256_loadu_si256((__m256i *) (vec1 + i + 48));
+      __m256i vec_2g = _mm256_loadu_si256((__m256i *) (vec2 + i + 48));
+      __m256i sum_7 = _mm256_mullo_epi32(vec_1g, vec_2g);
+
+      int32_t tmp_arr7[8];
+      _mm256_storeu_si256((__m256i *) tmp_arr7, sum_7);
+      sum += tmp_arr7[0] + tmp_arr7[1] + tmp_arr7[2] + tmp_arr7[3] + tmp_arr7[4] + tmp_arr7[5] + tmp_arr7[6] + tmp_arr7[7];
+        
+      __m256i vec_1h = _mm256_loadu_si256((__m256i *) (vec1 + i + 56));
+      __m256i vec_2h = _mm256_loadu_si256((__m256i *) (vec2 + i + 56));
+      __m256i sum_8 = _mm256_mullo_epi32(vec_1h, vec_2h);
+
+      int32_t tmp_arr8[8];
+      _mm256_storeu_si256((__m256i *) tmp_arr8, sum_8);
+      sum += tmp_arr8[0] + tmp_arr8[1] + tmp_arr8[2] + tmp_arr8[3] + tmp_arr8[4] + tmp_arr8[5] + tmp_arr8[6] + tmp_arr8[7];
 }
 
-    int temp = n/32*32;
+    int temp = n/64*64;
     for(unsigned int i = temp; i < n/8*8; i+=8) {
       __m256i vec_1a = _mm256_loadu_si256((__m256i *) (vec1 + i));
       __m256i vec_2a = _mm256_loadu_si256((__m256i *) (vec2 + i));
